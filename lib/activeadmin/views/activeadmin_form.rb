@@ -3,7 +3,8 @@ module ActiveAdmin
     class ActiveAdminForm
       def latlng **args
         lang = args[:lang] || 'en'
-        case args[:map]
+        map  = args[:map]  || :yandex
+        case map
         when :yandex
           insert_tag(YandexMapProxy, form_builder, lang)
         end
