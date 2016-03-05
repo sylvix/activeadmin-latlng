@@ -9,13 +9,13 @@ Gem::Specification.new do |s|
   s.version     = ActiveadminLatlng::VERSION
   s.authors     = ["Alexey Krylov"]
   s.email       = ["alexey2142@mail.ru"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ActiveadminLatlng."
-  s.description = "TODO: Description of ActiveadminLatlng."
+  s.homepage    = "https://github.com/forsaken1/activeadmin_latlng"
+  s.summary     = "Summary of ActiveadminLatlng."
+  s.description = "Description of ActiveadminLatlng."
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc", "README.md"]
+  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "activeadmin"
 
