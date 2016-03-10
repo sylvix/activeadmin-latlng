@@ -1,3 +1,5 @@
+# ActiveadminLatlng
+
 Active Admin latitude and longitude plugin
 
 
