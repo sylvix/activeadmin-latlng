@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Alexey Krylov"]
   s.email       = ["alexey2142@mail.ru"]
   s.homepage    = "https://github.com/forsaken1/activeadmin_latlng"
-  s.summary     = "Summary of ActiveadminLatlng."
-  s.description = "Description of ActiveadminLatlng."
+  s.summary     = "ActiveadminLatlng"
+  s.description = "Small Active Admin plugin for setting up latitude and longitude."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc", "README.md"]
