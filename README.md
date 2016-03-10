@@ -2,6 +2,8 @@
 
 Active Admin latitude and longitude plugin
 
+![alt tag](https://raw.githubusercontent.com/forsaken1/activeadmin-latlng/master/aa_latlng.png)
+
 
 
 ## Getting started
