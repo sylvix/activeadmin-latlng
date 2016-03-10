@@ -29,7 +29,7 @@ end
 
 * `map` - map provider, yandex maps by default
 
-* `id_lat` and `id_lng` - identificator of latitude and longitude inputs, Moscow coords by default
+* `id_lat` and `id_lng` - identificator of latitude and longitude inputs
 
 * `height` - map height in pixels, 400 by default
 
