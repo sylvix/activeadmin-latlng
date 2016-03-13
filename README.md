@@ -27,7 +27,7 @@ end
 
 ## Settings
 
-* `lang` - language, `ru` by default
+* `lang` - language, `en` by default
 
 * `map` - map provider, yandex maps by default
 
