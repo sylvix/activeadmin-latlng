@@ -17,7 +17,7 @@ form do |f|
   f.inputs do
     f.input :lat
     f.input :lng
-    f.latlng lang: :ru
+    f.latlng # add this
   end
   f.actions
 end
