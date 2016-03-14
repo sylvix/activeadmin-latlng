@@ -35,6 +35,8 @@ end
 
 * `height` - map height in pixels, `400` by default.
 
+* `loading_map` - loading map library. `true` by default. Set to `false`, if map loaded in other place.
+
 
 
 ## Contributors
