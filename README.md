@@ -37,6 +37,19 @@ end
 
 * `loading_map` - loading map library. `true` by default. Set to `false`, if map loaded in other place.
 
+### Example
+
+```ruby
+form do |f|
+  f.inputs do
+    f.input :lat
+    f.input :lng
+    f.latlng lang: :ru, map: :yandex, height: 500, loading_map: false
+  end
+  f.actions
+end
+```
+
 
 
 ## Contributors
