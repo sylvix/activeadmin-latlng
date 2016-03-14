@@ -29,7 +29,7 @@ module ActiveAdmin
     class GoogleMapProxy < LatlngProxy
       def to_s
         "<li>" \
-        "<script src=\"https://maps.googleapis.com/maps/api/js?callback=googleMapObject.init\"
+        "<script src=\"https://maps.googleapis.com/maps/api/js?language=#{@lang}&callback=googleMapObject.init\"
     async defer></script>" \
         "<div id=\"google_map\" style=\"height: #{@height}px\"></div>" \
         "<script>
