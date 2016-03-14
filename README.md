@@ -27,13 +27,13 @@ end
 
 ## Settings
 
-* `lang` - language, `en` by default
+* `lang` - language, `en` by default.
 
-* `map` - map provider, yandex maps by default
+* `map` - map provider, `google` by default. Available: `google`, `yandex`.
 
-* `id_lat` and `id_lng` - identificator of latitude and longitude inputs
+* `id_lat` and `id_lng` - identificator of latitude and longitude inputs. `<model_name>_lat` and `<model_name>_lng` by default.
 
-* `height` - map height in pixels, 400 by default
+* `height` - map height in pixels, `400` by default.
 
 
 

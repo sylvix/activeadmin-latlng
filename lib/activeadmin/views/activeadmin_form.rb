@@ -3,8 +3,8 @@ module ActiveAdmin
     class ActiveAdminForm
       def latlng **args
         class_name = form_builder.object.class.model_name.element
-        lang = args[:lang] || 'en'
-        map  = args[:map]  || :yandex
+        lang   = args[:lang]   || 'en'
+        map    = args[:map]    || :google
         id_lat = args[:id_lat] || "#{class_name}_lat"
         id_lng = args[:id_lng] || "#{class_name}_lng"
         height = args[:height] || 400
@@ -12,15 +12,76 @@ module ActiveAdmin
         case map
         when :yandex
           insert_tag(YandexMapProxy, form_builder, lang, id_lat, id_lng, height)
+        when :google
+          insert_tag(GoogleMapProxy, form_builder, lang, id_lat, id_lng, height)
+        else
+          insert_tag(GoogleMapProxy, form_builder, lang, id_lat, id_lng, height)
         end
       end
     end
 
-    class YandexMapProxy < FormtasticProxy
+    class LatlngProxy < FormtasticProxy
       def build(form_builder, *args, &block)
         @lang, @id_lat, @id_lng, @height = *args
       end
+    end
 
+    class GoogleMapProxy < LatlngProxy
+      def to_s
+        "<li>" \
+        "<script src=\"https://maps.googleapis.com/maps/api/js?callback=googleMapObject.init\"
+    async defer></script>" \
+        "<div id=\"google_map\" style=\"height: #{@height}px\"></div>" \
+        "<script>
+          var googleMapObject = {
+            coords: null,
+            map: null,
+            marker: null,
+
+            getCoordinates: function() {
+              return {
+                lat: parseFloat($(\"##{@id_lat}\").val()) || 55.7522200,
+                lng: parseFloat($(\"##{@id_lng}\").val()) || 37.6155600,
+              };
+            },
+
+            saveCoordinates: function() {
+              $(\"##{@id_lat}\").val( googleMapObject.coords.lat.toFixed(10) );
+              $(\"##{@id_lng}\").val( googleMapObject.coords.lng.toFixed(10) );
+            },
+
+            init: function() {
+              googleMapObject.coords = googleMapObject.getCoordinates();
+              googleMapObject.saveCoordinates();
+
+              googleMapObject.map = new google.maps.Map(document.getElementById('google_map'), {
+                center: googleMapObject.coords,
+                zoom: 12
+              });
+              
+              var latLngCoord = new google.maps.LatLng(googleMapObject.coords.lat, googleMapObject.coords.lng);
+              googleMapObject.marker = new google.maps.Marker({
+                position: latLngCoord,
+                map: googleMapObject.map,
+                draggable: true
+              });
+              googleMapObject.map.addListener('click', function(e) {
+                googleMapObject.coords = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+                googleMapObject.saveCoordinates();
+                googleMapObject.marker.setPosition(googleMapObject.coords);
+              });
+              googleMapObject.marker.addListener('drag', function(e) {
+                googleMapObject.coords = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+                googleMapObject.saveCoordinates();
+              });
+            }
+          }
+        </script>" \
+        "</li>"
+      end
+    end
+
+    class YandexMapProxy < LatlngProxy
       def to_s
         "<li>" \
         "<script src=\"https://api-maps.yandex.ru/2.1/?lang=#{@lang}&load=Map,Placemark\" type=\"text/javascript\"></script>" \
