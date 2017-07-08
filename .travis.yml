@@ -1,0 +1,23 @@
+language: ruby
+
+rvm:
+  - 2.2
+  - 2.4
+
+env:
+  - RAILS_VERSION=4.2
+  - RAILS_VERSION=5.1
+
+matrix:
+  exclude:
+    - rvm: 2.2
+      env: RAILS_VERSION=4.2
+    - rvm: 2.4
+      env: RAILS_VERSION=4.2
+
+    - rvm: 2.2
+      env: RAILS_VERSION=5.1
+    - rvm: 2.4
+      env: RAILS_VERSION=5.1
+
+sudo: false
