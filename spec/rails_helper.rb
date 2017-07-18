@@ -2,8 +2,34 @@
 ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../dummy/config/environment", __FILE__)
-require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+
+require 'rspec/rails'
+require 'capybara/rails'
+require 'phantomjs/poltergeist'
+require 'database_cleaner'
+
+Capybara.javascript_driver = :poltergeist
+
+def reload_menus!
+  ActiveAdmin.application.namespaces.each { |n| n.reset_menu! }
+end
+
+def reload_routes!
+  Rails.application.reload_routes!
+end
+
+# Setup ActiveAdmin
+ActiveAdmin.application.load_paths = [File.expand_path("../dummy/app/admin", __FILE__)]
+ActiveAdmin.unload!
+ActiveAdmin.load!
+reload_menus!
+reload_routes!
+
+# Disabling authentication in specs so that we don't have to worry about
+# it allover the place
+ActiveAdmin.application.authentication_method = false
+ActiveAdmin.application.current_user_method = false
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -43,5 +69,22 @@ RSpec.configure do |config|
   #
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
   config.infer_spec_type_from_file_location!
 end
