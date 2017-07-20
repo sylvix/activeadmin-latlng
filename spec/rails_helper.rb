@@ -9,6 +9,12 @@ require 'capybara/rails'
 require 'phantomjs/poltergeist'
 require 'database_cleaner'
 
+require 'simplecov'
+SimpleCov.start
+
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
 Capybara.javascript_driver = :poltergeist
 
 def reload_menus!
