@@ -1,5 +1,9 @@
 # ActiveadminLatlng
 
+[![Build Status](https://travis-ci.org/forsaken1/activeadmin-latlng.svg?branch=master)](https://travis-ci.org/forsaken1/activeadmin-latlng)
+[![Code Climate](https://codeclimate.com/github/forsaken1/activeadmin-latlng.svg)](https://codeclimate.com/github/forsaken1/activeadmin-latlng)
+[![codecov](https://codecov.io/gh/forsaken1/activeadmin-latlng/branch/master/graph/badge.svg?token=)](https://codecov.io/gh/forsaken1/activeadmin-latlng)
+
 Active Admin latitude and longitude plugin
 
 ![alt tag](https://raw.githubusercontent.com/forsaken1/activeadmin-latlng/master/docs/aa_latlng.png)
