@@ -8,22 +8,25 @@ module ActiveAdmin
         id_lat = args[:id_lat] || "#{class_name}_lat"
         id_lng = args[:id_lng] || "#{class_name}_lng"
         height = args[:height] || 400
+        init_lat = args[:init_lat] || "55.7522200"
+        init_lng = args[:init_lng] || "37.6155600"
+        init_zoom = args[:init_zoom] || 12
         loading_map = args[:loading_map].nil? ? true : args[:loading_map]
 
         case map
         when :yandex
-          insert_tag(YandexMapProxy, form_builder, lang, id_lat, id_lng, height, loading_map)
+          insert_tag(YandexMapProxy, form_builder, lang, id_lat, id_lng, height, init_lat, init_lng, init_zoom, loading_map)
         when :google
-          insert_tag(GoogleMapProxy, form_builder, lang, id_lat, id_lng, height, loading_map)
+          insert_tag(GoogleMapProxy, form_builder, lang, id_lat, id_lng, height, init_lat, init_lng, init_zoom, loading_map)
         else
-          insert_tag(GoogleMapProxy, form_builder, lang, id_lat, id_lng, height, loading_map)
+          insert_tag(GoogleMapProxy, form_builder, lang, id_lat, id_lng, height, init_lat, init_lng, init_zoom, loading_map)
         end
       end
     end
 
     class LatlngProxy < FormtasticProxy
       def build(form_builder, *args, &block)
-        @lang, @id_lat, @id_lng, @height, @loading_map = *args
+        @lang, @id_lat, @id_lng, @height, @init_lat, @init_lng, @init_zoom, @loading_map = *args
       end
     end
 
@@ -41,8 +44,8 @@ module ActiveAdmin
 
             getCoordinates: function() {
               return {
-                lat: parseFloat($(\"##{@id_lat}\").val()) || 55.7522200,
-                lng: parseFloat($(\"##{@id_lng}\").val()) || 37.6155600,
+                lat: parseFloat($(\"##{@id_lat}\").val()) || #{@init_lat},
+                lng: parseFloat($(\"##{@id_lng}\").val()) || #{@init_lng},
               };
             },
 
@@ -57,7 +60,7 @@ module ActiveAdmin
 
               googleMapObject.map = new google.maps.Map(document.getElementById('google_map'), {
                 center: googleMapObject.coords,
-                zoom: 12
+                zoom: #{@init_zoom}
               });
               
               var latLngCoord = new google.maps.LatLng(googleMapObject.coords.lat, googleMapObject.coords.lng);
@@ -96,8 +99,8 @@ module ActiveAdmin
 
             getCoordinates: function() {
               return [
-                parseFloat($(\"##{@id_lat}\").val()) || 55.7522200,
-                parseFloat($(\"##{@id_lng}\").val()) || 37.6155600,
+                parseFloat($(\"##{@id_lat}\").val()) || #{@init_lat},
+                parseFloat($(\"##{@id_lng}\").val()) || #{@init_lng},
               ];
             },
 
@@ -112,7 +115,7 @@ module ActiveAdmin
 
               yandexMapObject.map = new ymaps.Map(\"yandex_map\", {
                   center: yandexMapObject.coords,
-                  zoom: 12
+                  zoom: #{@init_zoom}
               });
 
               yandexMapObject.placemark = new ymaps.Placemark( yandexMapObject.coords, {}, { preset: \"twirl#redIcon\", draggable: true } );

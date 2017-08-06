@@ -41,6 +41,10 @@ end
 
 * `loading_map` - loading map library. `true` by default. Set to `false`, if map loaded in other place.
 
+* `init_lat`, `init_lng` - use to set initial position of the map when not set by model (default: Moscow)
+
+* `init_zoom` - use to set default zoom level of the map (default: 12)
+
 ### Example
 
 ```ruby
